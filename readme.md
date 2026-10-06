@@ -10,7 +10,7 @@ note this webzine is "perennial" meaning it only is viewable during one season p
 
 ***
 
-technical notes:
+## technical notes
 
 the published folder is `docs/`
 
