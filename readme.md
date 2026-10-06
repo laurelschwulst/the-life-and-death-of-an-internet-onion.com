@@ -1,7 +1,16 @@
 # internet onion
 
-the site is published through github pages at the custom domain:<br>
+the site was originally published through github pages at this custom domain:<br>
 https://the-life-and-death-of-an-internet-onion.com
+
+since 2022, it has only been available on github pages, at this url:
+https://laurelschwulst.github.io/the-life-and-death-of-an-internet-onion.com
+
+note this webzine is "perennial" meaning it only is viewable during one season per year (typically 5 weeks in late summer).
+
+***
+
+technical notes:
 
 the published folder is `docs/`
 
