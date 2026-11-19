@@ -251,6 +251,12 @@ $(document).ready(function() {
   // by 0.15; the third tap fades it out completely and the onion comes alive.
   var isTouch = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
   var cloudTaps = 0;
+  // The tap wording is hidden in the HTML and only revealed here, so
+  // desktops never show it, even with an old cached stylesheet.
+  if (isTouch) {
+    $('.instruction .for-keyboard').attr('hidden', true);
+    $('.instruction .for-touch').removeAttr('hidden');
+  }
   $('.future-onion').on('click', function() {
     if (!isTouch || cloudTaps >= 3) return;
     cloudTaps++;

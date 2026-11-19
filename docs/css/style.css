@@ -41,16 +41,8 @@
   opacity: 0.5;
   padding-top: 1em;
 }
-.future-onion .instruction .for-touch {
+.future-onion .instruction [hidden] {
   display: none;
-}
-@media (hover: none) and (pointer: coarse) {
-  .future-onion .instruction .for-keyboard {
-    display: none;
-  }
-  .future-onion .instruction .for-touch {
-    display: inline;
-  }
 }
 
 body.unblurred .future-onion,

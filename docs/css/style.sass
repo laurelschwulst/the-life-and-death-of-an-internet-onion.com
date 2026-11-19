@@ -36,14 +36,9 @@ $breakpoint: 480px
   .instruction
     opacity: 0.5
     padding-top: 1em
-    .for-touch
+    // which wording shows (keyboard vs touch) is set in js/script.js
+    [hidden]
       display: none
-    // phones and tablets: no "e" key, so tap the cloud instead
-    @media (hover: none) and (pointer: coarse)
-      .for-keyboard
-        display: none
-      .for-touch
-        display: inline
 
 // only show the floating message while the onion is dead ("e" can also hide it)
 body.unblurred .future-onion,
