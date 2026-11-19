@@ -247,6 +247,33 @@ $(document).ready(function() {
 
 
   // ARROW KEYS
+  // Touch devices (no "e" key): each tap on the floating message fades it
+  // by 0.15; the third tap fades it out completely and the onion comes alive.
+  var isTouch = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+  var cloudTaps = 0;
+  $('.future-onion').on('click', function() {
+    if (!isTouch || cloudTaps >= 3) return;
+    cloudTaps++;
+    var $cloud = $(this);
+    if (cloudTaps < 3) {
+      $cloud.css('opacity', 1 - cloudTaps * 0.15);
+      return;
+    }
+    $cloud.css('opacity', 0);
+    setTimeout(function() {
+      // cloud has faded out (0.4s, matches style.sass): hide it, and let
+      // the dead onion sit on its own for a beat before it comes alive
+      $('body').addClass('message-hidden');
+      $cloud.css('opacity', '');
+      setTimeout(function() {
+        // fade the opacity back up (0.15s transition in style.sass); the blur drops at once
+        $('body').addClass('fading-to-life').removeClass('message-hidden').addClass('unblurred');
+        setTimeout(function() { $('body').removeClass('fading-to-life'); }, 150);
+        cloudTaps = 0;
+      }, 800);
+    }, 400);
+  });
+
   $(document).on('keydown', function(event) {
     event = event || window.event;
 

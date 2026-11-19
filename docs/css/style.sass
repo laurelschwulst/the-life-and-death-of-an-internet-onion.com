@@ -21,10 +21,13 @@ $breakpoint: 480px
   padding-bottom: 2em
   box-shadow: 0 0 2em 2em snow
   z-index: 1000
+  transition: opacity 0.4s ease
+  -webkit-tap-highlight-color: transparent
   // the oval's natural width is ~917px; below ~960px it would hit the screen edge
   @media screen and (max-width: 960px)
     padding-left: 2em
     padding-right: 2em
+    padding-top: 2em
   .currently
     opacity: 1
   .yearly
@@ -33,6 +36,14 @@ $breakpoint: 480px
   .instruction
     opacity: 0.5
     padding-top: 1em
+    .for-touch
+      display: none
+    // phones and tablets: no "e" key, so tap the cloud instead
+    @media (hover: none) and (pointer: coarse)
+      .for-keyboard
+        display: none
+      .for-touch
+        display: inline
 
 // only show the floating message while the onion is dead ("e" can also hide it)
 body.unblurred .future-onion,
@@ -1290,3 +1301,9 @@ a.back
 :where(body:not(.unblurred)) section, :where(body:not(.unblurred)) header nav, :where(body:not(.unblurred)) header h1, :where(body:not(.unblurred)) button.peel-button, :where(body:not(.unblurred)) .onion-container
   filter: blur(12px) saturate(70%)
   opacity: 0.6
+
+// Mobile: after the third tap on the cloud, the blur drops at once and
+// only the opacity eases back to life (js/script.js adds this class for the moment it changes).
+body.fading-to-life
+  section, header nav, header h1, button.peel-button, .onion-container
+    transition: opacity 0.15s ease

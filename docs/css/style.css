@@ -20,11 +20,14 @@
   padding-bottom: 2em;
   box-shadow: 0 0 2em 2em snow;
   z-index: 1000;
+  transition: opacity 0.4s ease;
+  -webkit-tap-highlight-color: transparent;
 }
 @media screen and (max-width: 960px) {
   .future-onion {
     padding-left: 2em;
     padding-right: 2em;
+    padding-top: 2em;
   }
 }
 .future-onion .currently {
@@ -37,6 +40,17 @@
 .future-onion .instruction {
   opacity: 0.5;
   padding-top: 1em;
+}
+.future-onion .instruction .for-touch {
+  display: none;
+}
+@media (hover: none) and (pointer: coarse) {
+  .future-onion .instruction .for-keyboard {
+    display: none;
+  }
+  .future-onion .instruction .for-touch {
+    display: inline;
+  }
 }
 
 body.unblurred .future-onion,
@@ -1736,6 +1750,10 @@ a.back {
 :where(body:not(.unblurred)) section, :where(body:not(.unblurred)) header nav, :where(body:not(.unblurred)) header h1, :where(body:not(.unblurred)) button.peel-button, :where(body:not(.unblurred)) .onion-container {
   filter: blur(12px) saturate(70%);
   opacity: 0.6;
+}
+
+body.fading-to-life section, body.fading-to-life header nav, body.fading-to-life header h1, body.fading-to-life button.peel-button, body.fading-to-life .onion-container {
+  transition: opacity 0.15s ease;
 }
 
 /*# sourceMappingURL=style.css.map */
