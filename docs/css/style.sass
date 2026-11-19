@@ -6,19 +6,38 @@ $breakpoint: 480px
 .future-onion
   text-align: center
   position: fixed
-  bottom: 2em
-  left: 1em
-  right: 1em
+  top: 50%
+  left: 50%
+  transform: translate(-50%, -50%)
+  width: max-content
+  max-width: calc(100% - 2em)
+  border-radius: 50%
   color: #b3712e
   background: snow
   padding: 1em
   padding-left: 8em
   padding-right: 8em
-  padding-top: 0
+  padding-top: 1.5em
+  padding-bottom: 2em
   box-shadow: 0 0 2em 2em snow
-  @media screen and (max-width: $breakpoint)
-    padding-left: 1em
-    padding-right: 1em
+  z-index: 1000
+  // the oval's natural width is ~917px; below ~960px it would hit the screen edge
+  @media screen and (max-width: 960px)
+    padding-left: 2em
+    padding-right: 2em
+  .currently
+    opacity: 1
+  .yearly
+    opacity: 1
+    padding-top: 1em
+  .instruction
+    opacity: 0.5
+    padding-top: 1em
+
+// only show the floating message while the onion is dead ("e" can also hide it)
+body.unblurred .future-onion,
+body.message-hidden .future-onion
+  display: none
 
 *
   box-sizing: border-box
@@ -1254,3 +1273,20 @@ a.back
   align-items: center
   @media screen and (max-width: $breakpoint)
     display: block
+
+// Decay blur. Pressing "e" toggles body.unblurred (see js/script.js).
+// :where() keeps these rules at the same specificity they had before.
+/* PHASE 1 */
+:where(body:not(.unblurred)) section, :where(body:not(.unblurred)) header nav, :where(body:not(.unblurred)) header h1, :where(body:not(.unblurred)) button.peel-button, :where(body:not(.unblurred)) .onion-container
+  filter: blur(2px)
+  opacity: 0.95
+
+/* PHASE 2 */
+:where(body:not(.unblurred)) section, :where(body:not(.unblurred)) header nav, :where(body:not(.unblurred)) header h1, :where(body:not(.unblurred)) button.peel-button, :where(body:not(.unblurred)) .onion-container
+  filter: blur(5px) saturate(90%)
+  opacity: 0.85
+
+/* PHASE 3 */
+:where(body:not(.unblurred)) section, :where(body:not(.unblurred)) header nav, :where(body:not(.unblurred)) header h1, :where(body:not(.unblurred)) button.peel-button, :where(body:not(.unblurred)) .onion-container
+  filter: blur(12px) saturate(70%)
+  opacity: 0.6

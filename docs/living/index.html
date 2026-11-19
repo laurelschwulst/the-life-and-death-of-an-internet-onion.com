@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>The Life and Death of an Internet Onion</title>
+  <!-- /living shows the main page in its living state. It hands off to the main
+       page with ?alive, and js/script.js puts /living back in the address bar. -->
+  <script>location.replace('../?alive' + location.hash);</script>
+  <meta http-equiv="refresh" content="0; url=../?alive" />
+</head>
+<body></body>
+</html>

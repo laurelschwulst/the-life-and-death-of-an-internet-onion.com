@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>The Life and Death of an Internet Onion</title>
+  <!-- /dead shows the main page in its dead state. It hands off to the main
+       page with ?dead, and js/script.js puts /dead back in the address bar. -->
+  <script>location.replace('../?dead' + location.hash);</script>
+  <meta http-equiv="refresh" content="0; url=../?dead" />
+</head>
+<body></body>
+</html>

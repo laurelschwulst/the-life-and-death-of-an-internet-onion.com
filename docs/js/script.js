@@ -5,6 +5,50 @@
 
 
 /**************************************************************
+* Starting state: /living loads unblurred, /dead loads blurred,
+* and the plain homepage follows the calendar (see isAliveSeason
+* below). The "e" key still toggles
+* either way. living/index.html and dead/index.html hand off here
+* with ?alive or ?dead, and the address bar is set back to /living
+* or /dead.
+***************************************************************/
+// The onion is alive (unblurred) every year from midnight New York
+// time as July 23 begins until midnight New York time as August 27
+// begins (five weeks). It flips at the same moment for everyone in the
+// world, and is dead (blurred) the rest of the year. New York is on
+// daylight time (UTC-4) all through July and August, so midnight
+// there is 04:00 UTC.
+// The "e" key loop: each press moves one step along, then it repeats.
+var E_STEPS = ['shown', 'hidden', 'alive', 'hidden'];
+var eStep = null; // set on the first press, from the state the page loaded in
+
+function isAliveSeason(now) {
+  var year = now.getUTCFullYear();
+  var start = Date.UTC(year, 6, 23, 4); // July 23, 00:00 New York (months are 0-based)
+  var end = Date.UTC(year, 7, 27, 4);   // August 27, 00:00 New York, first dead moment
+  return now.getTime() >= start && now.getTime() < end;
+}
+
+(function() {
+  var params = new URLSearchParams(window.location.search);
+  var path = null;
+  if (params.has('alive')) {
+    document.body.classList.add('unblurred');
+    path = 'living';
+  } else if (params.has('dead')) {
+    document.body.classList.remove('unblurred');
+    path = 'dead';
+  } else if (isAliveSeason(new Date())) {
+    // plain homepage: follow the calendar
+    document.body.classList.add('unblurred');
+  }
+  if (path && window.history.replaceState) {
+    window.history.replaceState(null, '', path + window.location.hash);
+  }
+})();
+
+
+/**************************************************************
 * Initialize
 ***************************************************************/
 $(document).ready(function() {
@@ -216,6 +260,19 @@ $(document).ready(function() {
     if (event.keyCode == '40') {
       goDown();
       event.preventDefault();
+    }
+
+    // "e" steps through a repeating four-step loop (hidden, no UI):
+    //   dead + floating message -> dead, message hidden -> alive -> dead, message hidden -> (repeat)
+    if ((event.key === 'e' || event.key === 'E') && !event.metaKey && !event.ctrlKey && !event.altKey && !$(event.target).is('input, textarea, select, [contenteditable]')) {
+      var $body = $('body');
+      if (eStep === null) {
+        // first press: start from wherever the page loaded (alive = step 2, dead = step 0)
+        eStep = $body.hasClass('unblurred') ? 2 : 0;
+      }
+      eStep = (eStep + 1) % E_STEPS.length;
+      $body.toggleClass('unblurred', E_STEPS[eStep] === 'alive');
+      $body.toggleClass('message-hidden', E_STEPS[eStep] === 'hidden');
     }
   });
 

@@ -5,22 +5,43 @@
 .future-onion {
   text-align: center;
   position: fixed;
-  bottom: 2em;
-  left: 1em;
-  right: 1em;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: max-content;
+  max-width: calc(100% - 2em);
+  border-radius: 50%;
   color: #b3712e;
   background: snow;
   padding: 1em;
   padding-left: 8em;
   padding-right: 8em;
-  padding-top: 0;
+  padding-top: 1.5em;
+  padding-bottom: 2em;
   box-shadow: 0 0 2em 2em snow;
+  z-index: 1000;
 }
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 960px) {
   .future-onion {
-    padding-left: 1em;
-    padding-right: 1em;
+    padding-left: 2em;
+    padding-right: 2em;
   }
+}
+.future-onion .currently {
+  opacity: 1;
+}
+.future-onion .yearly {
+  opacity: 1;
+  padding-top: 1em;
+}
+.future-onion .instruction {
+  opacity: 0.5;
+  padding-top: 1em;
+}
+
+body.unblurred .future-onion,
+body.message-hidden .future-onion {
+  display: none;
 }
 
 * {
@@ -117,7 +138,7 @@ header nav ul li {
   list-style-type: none;
   color: #0e2e5d;
   text-decoration: none;
-  background: white;
+  background: rgb(255, 255, 255);
   padding: 5px 8px;
   text-transform: uppercase;
   cursor: pointer;
@@ -379,31 +400,31 @@ header nav ul.show-all li#header-nav-link_about, header nav ul.show-all li#heade
   border-color: CornFlowerBlue;
 }
 .onion-container .onion .layer#layer-34 {
-  border-color: white;
+  border-color: rgb(255, 255, 255);
 }
 .onion-container .onion .layer#layer-34.hover {
   border-color: OliveDrab;
 }
 .onion-container .onion .layer#layer-35 {
-  border-color: white;
+  border-color: rgb(255, 255, 255);
 }
 .onion-container .onion .layer#layer-35.hover {
   border-color: LightCoral;
 }
 .onion-container .onion .layer#layer-36 {
-  border-color: white;
+  border-color: rgb(255, 255, 255);
 }
 .onion-container .onion .layer#layer-36.hover {
   border-color: LightSteelBlue;
 }
 .onion-container .onion .layer#layer-37 {
-  border-color: white;
+  border-color: rgb(255, 255, 255);
 }
 .onion-container .onion .layer#layer-37.hover {
   border-color: Thistle;
 }
 .onion-container .onion .layer#layer-38 {
-  border-color: white;
+  border-color: rgb(255, 255, 255);
 }
 .onion-container .onion .layer#layer-38.hover {
   border-color: DarkGray;
@@ -1700,31 +1721,19 @@ a.back {
 }
 
 /* PHASE 1 */
-section,
-header nav,
-header h1,
-button.peel-button,
-.onion-container {
+:where(body:not(.unblurred)) section, :where(body:not(.unblurred)) header nav, :where(body:not(.unblurred)) header h1, :where(body:not(.unblurred)) button.peel-button, :where(body:not(.unblurred)) .onion-container {
   filter: blur(2px);
   opacity: 0.95;
 }
 
 /* PHASE 2 */
-section,
-header nav,
-header h1,
-button.peel-button,
-.onion-container {
+:where(body:not(.unblurred)) section, :where(body:not(.unblurred)) header nav, :where(body:not(.unblurred)) header h1, :where(body:not(.unblurred)) button.peel-button, :where(body:not(.unblurred)) .onion-container {
   filter: blur(5px) saturate(90%);
   opacity: 0.85;
 }
 
 /* PHASE 3 */
-section,
-header nav,
-header h1,
-button.peel-button,
-.onion-container {
+:where(body:not(.unblurred)) section, :where(body:not(.unblurred)) header nav, :where(body:not(.unblurred)) header h1, :where(body:not(.unblurred)) button.peel-button, :where(body:not(.unblurred)) .onion-container {
   filter: blur(12px) saturate(70%);
   opacity: 0.6;
 }
